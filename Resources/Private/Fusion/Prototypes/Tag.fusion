@@ -1,0 +1,26 @@
+prototype(CodeQ.Link:Tag) < prototype(Neos.Fusion:Component) {
+    # link configuration via transfer object
+    link = false
+    backendLink = false
+
+    # tag rendering configuration
+    renderDefaultTagIfNoLink = false
+    defaultTagName = 'span'
+    tabindex = null
+    content = false
+    # attributes can also be set
+
+    # map the link transfer object to Carbon.Link
+    renderer = Carbon.Link:Link {
+        link = ${props.link.link}
+        renderDefaultTagIfNoLink = ${props.renderDefaultTagIfNoLink}
+        defaultTagName = ${props.defaultTagName}
+        tabindex = ${props.tabindex}
+        content = ${props.content || props.link.label}
+        attributes {
+            rel = ${props.link.rel}
+            target = ${props.link.target}
+            class = ''
+        }
+    }
+}

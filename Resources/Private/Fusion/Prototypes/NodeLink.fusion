@@ -1,0 +1,10 @@
+prototype(CodeQ.Link:NodeLink) < prototype(Neos.Fusion:DataStructure) {
+    node = false
+
+    backendLink={false}
+
+    # map to transfer object
+    link = ${this.node ? 'node://' + this.node.identifier : false}
+    linkType = Carbon.Link:Type
+    rel = ${this.linkType == 'external' ? 'noopener' : false}
+}

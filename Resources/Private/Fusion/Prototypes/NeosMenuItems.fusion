@@ -1,0 +1,30 @@
+##
+# Generated a menu items transfer object, which works with Monocle.
+# So instead of `node` we have a `link`property
+#
+# Exposes the Neos.Neos:MenuItems api
+##
+prototype(CodeQ.Link:NeosMenuItems) < prototype(Neos.Neos:MenuItems) {
+    @process.transform = CodeQ.Link:NeosMenuItems.MapItem {
+        items = ${value}
+    }
+}
+
+prototype(CodeQ.Link:NeosMenuItems.MapItem) < prototype(Neos.Fusion:Map) {
+    # api
+    items = false
+
+    # rendering
+    itemName = 'item'
+    itemRenderer = Neos.Fusion:DataStructure {
+        link = Neos.Neos:NodeUri {
+            node = ${item.node}
+        }
+        label = ${item.label}
+        state = ${item.state}
+        menuLevel = ${item.menuLevel}
+        subItems = CodeQ.Link:NeosMenuItems.MapItem {
+            items = ${item.subItems}
+        }
+    }
+}

@@ -1,0 +1,10 @@
+prototype(CodeQ.Link:DummyReferences) < prototype(Neos.Fusion:DataStructure) {
+    0 = Neos.Fusion:DataStructure {
+        link = '/'
+        label = 'Home'
+    }
+    1 = Neos.Fusion:DataStructure {
+        link = '/'
+        label = 'Imprint'
+    }
+}

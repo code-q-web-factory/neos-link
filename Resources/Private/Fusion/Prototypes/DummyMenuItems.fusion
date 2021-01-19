@@ -1,0 +1,32 @@
+##
+# This generated some sample links for rendering a menu
+##
+prototype(CodeQ.Link:DummyMenuItems) < prototype(Neos.Fusion:DataStructure) {
+    0 = Neos.Fusion:DataStructure {
+        link = '/'
+        label = 'Home'
+        state = 'normal'
+    }
+    1 = Neos.Fusion:DataStructure {
+        link = '#'
+        label = 'Page 1'
+        state = 'active'
+        subItems = Neos.Fusion:DataStructure {
+            0 = Neos.Fusion:DataStructure {
+                link = '#'
+                label = 'Page 1.1'
+                state = 'normal'
+            }
+            1 = Neos.Fusion:DataStructure {
+                link = '#'
+                label = 'Page 1.2'
+                state = 'current'
+            }
+        }
+    }
+    2 = Neos.Fusion:DataStructure {
+        link = '#'
+        label = 'Page 2'
+        state = 'normal'
+    }
+}

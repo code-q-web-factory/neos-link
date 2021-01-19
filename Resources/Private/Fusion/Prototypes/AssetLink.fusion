@@ -1,0 +1,9 @@
+prototype(CodeQ.Link:AssetLink) < prototype(Neos.Fusion:DataStructure) {
+    asset = false
+
+    # map to transfer object
+    @context.link = ${this.asset}
+    label = Carbon.Link:Content
+    rel = false
+    target = Carbon.Link:Target
+}

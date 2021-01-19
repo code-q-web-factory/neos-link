@@ -1,0 +1,19 @@
+##
+# We expect to get a node property of the typ `references`
+##
+prototype(CodeQ.Link:NodeReferences) < prototype(Neos.Fusion:Map) {
+    # api
+    nodes = false
+
+    # rendering
+    items = ${this.nodes}
+    itemName = 'node'
+    itemRenderer = Neos.Fusion:DataStructure {
+        link = Neos.Neos:NodeUri {
+            node = ${node}
+        }
+        label = Carbon.Link:Content {
+            link = ${'node://' + node.identifier}
+        }
+    }
+}
