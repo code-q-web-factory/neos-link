@@ -1,10 +1,32 @@
 prototype(CodeQ.Link:NodeLink) < prototype(Neos.Fusion:DataStructure) {
     node = false
-
-    backendLink={false}
+    backendLink = false
 
     # map to transfer object
-    link = ${this.node ? 'node://' + this.node.identifier : false}
-    linkType = Carbon.Link:Type
+    @context {
+        node = ${this.node}
+        carbonLink = ${this.node ? 'node://' + this.node.identifier : false}
+        backendLink = ${this.backendLink}
+    }
+    link = Neos.Fusion:Case {
+        isBackend {
+            condition = ${node.context.inBackend && !backendLink ? true : false}
+            renderer = false
+        }
+        default {
+            condition = true
+            renderer = Neos.Neos:NodeUri {
+                nodeObject = ${Neos.Link.convertUriToObject(carbonLink, node)}
+                node = ${q(this.nodeObject).closest(Configuration.setting('Carbon.Link.instanceOfDocument')).get(0)}
+                section = ${q(this.nodeObject).is(Configuration.setting('Carbon.Link.instanceOfDocument')) ? false : Configuration.setting('Carbon.Link.prependIdentifier') + nodeObject.identifier}
+            }
+        }
+    }
+    linkType = Carbon.Link:Type {
+        link = ${carbonLink}
+    }
+    label = Carbon.Link:Content {
+        link = ${carbonLink}
+    }
     rel = ${this.linkType == 'external' ? 'noopener' : false}
 }

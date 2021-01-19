@@ -38,8 +38,13 @@ We use semantic versioning so every breaking change will increase the major-vers
 #### For an individual link we provide these mappers:
 
 - `CodeQ.Link:DummyLink`
-- `CodeQ.Link:AssetLink { asset = false }`
-- `CodeQ.Link:NodeLink { node = false }`
+- ```
+  CodeQ.Link:NodeLink {
+    node = ${node}
+    backendLink = false
+  }
+  ```
+- `CodeQ.Link:StringLink { link = 'asset://XXX' }`
 
 #### Usage:
 

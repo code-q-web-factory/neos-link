@@ -12,6 +12,7 @@ prototype(CodeQ.Link:Tag) < prototype(Neos.Fusion:Component) {
 
     # map the link transfer object to Carbon.Link
     renderer = Carbon.Link:Link {
+        backendLink = true
         link = ${props.link.link}
         renderDefaultTagIfNoLink = ${props.renderDefaultTagIfNoLink}
         defaultTagName = ${props.defaultTagName}
