@@ -8,7 +8,7 @@ prototype(CodeQ.Link:NodeReferences) < prototype(Neos.Fusion:Map) {
     # rendering
     items = ${this.nodes}
     itemName = 'node'
-    itemRenderer = Neos.Fusion:DataStructure {
+    itemRenderer = CodeQ.Link:Link {
         link = Neos.Neos:NodeUri {
             node = ${node}
         }

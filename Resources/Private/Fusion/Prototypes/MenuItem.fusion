@@ -1,0 +1,8 @@
+##
+# Menu item configuration structure
+##
+prototype(CodeQ.Link:MenuItem) < prototype(CodeQ.Link:Link) {
+    state = 'normal'
+    menuLevel = false
+    # optional subItems
+}

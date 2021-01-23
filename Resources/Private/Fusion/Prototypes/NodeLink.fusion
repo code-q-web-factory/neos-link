@@ -1,4 +1,4 @@
-prototype(CodeQ.Link:NodeLink) < prototype(Neos.Fusion:DataStructure) {
+prototype(CodeQ.Link:NodeLink) < prototype(CodeQ.Link:Link) {
     node = false
     backendLink = false
 

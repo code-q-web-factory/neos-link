@@ -12,6 +12,6 @@ prototype(CodeQ.Link:StringLink) < prototype(Neos.Fusion:DataStructure) {
     }
     label = Carbon.Link:Content
     href = Carbon.Link:URI
-    rel = false
+    rel = 'noopener'
     target = Carbon.Link:Target
 }

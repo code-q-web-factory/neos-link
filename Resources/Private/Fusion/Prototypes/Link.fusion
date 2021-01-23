@@ -1,0 +1,9 @@
+##
+# Link configuration structure
+##
+prototype(CodeQ.Link:Link) < prototype(Neos.Fusion:DataStructure) {
+    link = false
+    label = false
+    rel = false
+    target = false
+}

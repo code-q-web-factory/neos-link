@@ -2,6 +2,7 @@ prototype(CodeQ.Link:Tag) < prototype(Neos.Fusion:Component) {
     # link configuration via transfer object
     link = false
     backendLink = false
+    class = false
 
     # tag rendering configuration
     renderDefaultTagIfNoLink = false
@@ -22,7 +23,7 @@ prototype(CodeQ.Link:Tag) < prototype(Neos.Fusion:Component) {
             href = ${props.link.link}
             rel = ${props.link.rel}
             target = ${props.link.target}
-            class = ''
+            class = ${props.class}
         }
     }
 }

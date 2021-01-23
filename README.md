@@ -39,6 +39,14 @@ We use semantic versioning so every breaking change will increase the major-vers
 
 - `CodeQ.Link:DummyLink`
 - ```
+  CodeQ.Link:Link {
+    link = 'https://codeq.at'
+    label = 'Sponsor'
+    rel = 'noopener'
+    target = '_blank'
+  }
+  ```
+- ```
   CodeQ.Link:NodeLink {
     node = ${node}
     backendLink = false

@@ -1,6 +1,4 @@
-prototype(CodeQ.Link:DummyLink) < prototype(Neos.Fusion:DataStructure) {
-    link = '/'
-    label = 'Home'
-    rel = false
-    target = false
+prototype(CodeQ.Link:DummyLink) < prototype(CodeQ.Link:Link) {
+    link = '#'
+    label = 'example link'
 }
