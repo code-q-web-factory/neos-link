@@ -1,17 +1,18 @@
-prototype(CodeQ.Link:StringLink) < prototype(Neos.Fusion:DataStructure) {
+prototype(CodeQ.Link:StringLink) < prototype(CodeQ.Link:Link) {
     link = false
+    backendLink = false
 
     # map to transfer object
     @context {
-        backendLink = true
         link = ${this.link}
-        link.@process.convertUris = Neos.Neos:ConvertUris {
-            @if.isString = ${Type.isString(link)}
-            forceConversion = true
-        }
     }
+    enforceNoLinkTag = ${node.context.inBackend && !this.backendLink ? true : false}
     label = Carbon.Link:Content
-    href = Carbon.Link:URI
+    link.@process.convertUris = Carbon.Link:URI {
+        link = ${value}
+        backendLink = true
+    }
+    // todo improve rel='noopener' for internal node:// and asset://
     rel = 'noopener'
     target = Carbon.Link:Target
 }

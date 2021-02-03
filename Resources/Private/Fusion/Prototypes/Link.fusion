@@ -6,4 +6,8 @@ prototype(CodeQ.Link:Link) < prototype(Neos.Fusion:DataStructure) {
     label = false
     rel = false
     target = false
+    // enforce that the non-link default tag is rendered, even if a link is set
+    // typically this is used for links, which should be inline editable in the backend
+    // and so this prop is set based on the context and backendLink property in sub-prototypes
+    enforceNoLinkTag = false
 }

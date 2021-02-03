@@ -1,7 +1,6 @@
 prototype(CodeQ.Link:Tag) < prototype(Neos.Fusion:Component) {
     # link configuration via transfer object
-    link = false
-    backendLink = false
+    link = CodeQ.Link:Link
     class = false
 
     # tag rendering configuration
@@ -14,8 +13,8 @@ prototype(CodeQ.Link:Tag) < prototype(Neos.Fusion:Component) {
     # map the link transfer object to Carbon.Link
     renderer = Carbon.Link:Link {
         backendLink = true
-        link = ${props.link.link}
-        renderDefaultTagIfNoLink = ${props.renderDefaultTagIfNoLink}
+        link = ${props.link.enforceNoLinkTag ? false : props.link.link}
+        renderDefaultTagIfNoLink = ${props.renderDefaultTagIfNoLink || (props.link.link && props.link.enforceNoLinkTag)}
         defaultTagName = ${props.defaultTagName}
         tabindex = ${props.tabindex}
         content = ${props.content || props.link.label}
