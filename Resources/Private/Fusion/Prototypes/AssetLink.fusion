@@ -1,0 +1,15 @@
+prototype(CodeQ.Link:AssetLink) < prototype(CodeQ.Link:Link) {
+    asset = false
+    backendLink = true
+
+    enforceNoLinkTag = ${node.context.inBackend && !this.backendLink ? true : false}
+    link = ${this.asset}
+    link.@process.toUri = Neos.Fusion:ResourceUri {
+        resource = ${value.resource}
+    }
+    label = ${this.asset.title || String.replace(String.replace(this.asset.resource.filename, '_', ' '), '.' + this.asset.resource.fileextension, '')}
+    linkType = Carbon.Link:Type {
+        link = ${carbonLink}
+    }
+    rel = ${this.linkType == 'external' ? 'noopener' : false}
+}

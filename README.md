@@ -52,6 +52,12 @@ We use semantic versioning so every breaking change will increase the major-vers
     backendLink = false
   }
   ```
+- ```
+  CodeQ.Link:AssetLink {
+    asset = ${asset}
+    backendLink = true
+  }
+  ```
 - `CodeQ.Link:StringLink { link = 'asset://XXX' }`
 
 #### Usage:

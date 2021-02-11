@@ -8,7 +8,8 @@ prototype(CodeQ.Link:Tag) < prototype(Neos.Fusion:Component) {
     defaultTagName = 'span'
     tabindex = null
     content = false
-    # attributes can also be set
+    enforceDownload = false
+    # TODO: attributes can also be set
 
     # map the link transfer object to Carbon.Link
     renderer = Carbon.Link:Link {
@@ -23,6 +24,7 @@ prototype(CodeQ.Link:Tag) < prototype(Neos.Fusion:Component) {
             rel = ${props.link.rel}
             target = ${props.link.target}
             class = ${props.class}
+            download = ${props.enforceDownload}
         }
     }
 }
