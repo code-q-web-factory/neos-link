@@ -21,8 +21,6 @@ prototype(CodeQ.Link:NodeLink) < prototype(CodeQ.Link:Link) {
     linkType = Carbon.Link:Type {
         link = ${carbonLink}
     }
-    label = Carbon.Link:Content {
-        link = ${carbonLink}
-    }
+    label = ${q(this.node).property('title')}
     rel = ${this.linkType == 'external' ? 'noopener' : false}
 }
