@@ -1,18 +1,68 @@
-prototype(CodeQ.Link:StringLink) < prototype(CodeQ.Link:Link) {
+##
+# This shoudl be used for node properties of type string with a
+# editor: 'Neos.Neos/Inspector/Editors/LinkEditor'
+#
+# So it can be a url or asset or node identifier
+##
+prototype(CodeQ.Link:StringLink) < prototype(Neos.Fusion:Component) {
+    # api
     link = false
     backendLink = false
 
+    # typically not used, these properties can also be overriden
+    label = 'will-be-calculated'
+    rel = 'will-be-calculated'
+    target = 'will-be-calculated'
+
     # map to transfer object
-    @context {
-        link = ${this.link}
+    linkType = ${Neos.Link.getScheme(this.link)}
+    renderer = CodeQ.Link:Link {
+        enforceNoLinkTag = ${node.context.inBackend && !props.backendLink ? true : false}
+        label = Neos.Fusion:Case {
+            isOverride {
+                condition = ${props.label != 'will-be-calculated'}
+                renderer = ${props.label}
+            }
+            isAsset {
+                condition = ${props.linkType == 'asset'}
+                renderer = Neos.Fusion:Value {
+                    asset = ${Neos.Link.convertUriToObject(link, node)}
+                    value = ${this.asset.title || String.replace(String.replace(this.asset.resource.filename, '_', ' '), '.' + this.asset.resource.fileextension, '')}
+                }
+            }
+            isNode {
+                condition = ${props.linkType == 'node'}
+                renderer = Neos.Fusion:Value {
+                    node = ${Neos.Link.convertUriToObject(link, documentNode)}
+                    value = ${q(this.node).closest('[instanceof Neos.Neos:Document]').property('title')}
+                }
+            }
+            isEmail {
+                condition = ${String.startsWith(link, 'mailto:')}
+                renderer = ${String.replace(link, 'mailto:', '')}
+            }
+            isPhone {
+                condition = ${String.startsWith(link, 'tel:')}
+                renderer = ${String.replace(link, 'tel:', '')}
+            }
+            isHttp {
+                condition = ${String.startsWith(link, 'http')}
+                renderer = ${String.pregReplace(link, '/^http(s)?:\/\//', '')}
+            }
+            isDoubleSlash {
+                condition = ${String.startsWith(link, '//')}
+                renderer = ${String.pregReplace(link, '/^\/\//', '')}
+            }
+            fallback {
+                condition = true
+                renderer = ${props.link}
+            }
+        }
+        link = ${props.link}
+        link.@process.convertUris = Neos.Neos:ConvertUris {
+            forceConversion = true
+        }
+        target = ${props.target != 'will-be-calculated' ? props.target : ((props.linkType == 'asset' || String.startsWith(props.link, 'http') || String.startsWith(props.link, '//')) ? '_blank' : false)}
+        rel = ${props.rel != 'will-be-calculated' ? props.rel  : (this.target && props.linkType != 'asset' ? 'noopener' : false)}
     }
-    enforceNoLinkTag = ${node.context.inBackend && !this.backendLink ? true : false}
-    label = Carbon.Link:Content
-    link.@process.convertUris = Carbon.Link:URI {
-        link = ${value}
-        backendLink = true
-    }
-    // todo improve rel='noopener' for internal node:// and asset://
-    rel = 'noopener'
-    target = Carbon.Link:Target
 }

@@ -1,30 +1,26 @@
 prototype(CodeQ.Link:Tag) < prototype(Neos.Fusion:Component) {
     # link configuration via transfer object
-    link = CodeQ.Link:Link
+    linkSource = CodeQ.Link:Link
     class = false
 
     # tag rendering configuration
     renderDefaultTagIfNoLink = false
     defaultTagName = 'span'
-    tabindex = null
     content = false
     enforceDownload = false
-    # TODO: attributes can also be set
+    attributes = Neos.Fusion:DataStructure
 
-    # map the link transfer object to Carbon.Link
-    renderer = Carbon.Link:Link {
-        backendLink = true
-        link = ${props.link.enforceNoLinkTag ? false : props.link.link}
-        renderDefaultTagIfNoLink = ${props.renderDefaultTagIfNoLink || (props.link.link && props.link.enforceNoLinkTag)}
-        defaultTagName = ${props.defaultTagName}
-        tabindex = ${props.tabindex}
-        content = ${props.content || props.link.label}
-        attributes {
-            href = ${props.link.link}
-            rel = ${props.link.rel}
-            target = ${props.link.target}
-            class = ${props.class}
+    shouldRenderLinkTag = ${this.linkSource.enforceNoLinkTag ? false : this.linkSource.link}
+    renderer = Neos.Fusion:Tag {
+        @if.hasLink = ${props.linkSource.link || props.renderDefaultTagIfNoLink}
+        tagName = ${props.shouldRenderLinkTag ? 'a' : props.defaultTagName}
+        attributes = Neos.Fusion:DataStructure {
+            href = ${props.shouldRenderLinkTag ? props.linkSource.link : false}
+            rel = ${props.shouldRenderLinkTag ? props.linkSource.rel : false}
+            target = ${props.shouldRenderLinkTag ? props.linkSource.target : false}
+            class = ${props.class == false ? false : String.trim(props.class)}
             download = ${props.enforceDownload}
         }
+        content = ${props.content || props.linkSource.label}
     }
 }

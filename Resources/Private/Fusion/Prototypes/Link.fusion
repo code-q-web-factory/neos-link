@@ -4,7 +4,7 @@
 prototype(CodeQ.Link:Link) < prototype(Neos.Fusion:DataStructure) {
     link = false
     label = false
-    rel = false
+    rel = ${this.target == '_blank' ? 'noopener' : false}
     target = false
     // enforce that the non-link default tag is rendered, even if a link is set
     // typically this is used for links, which should be inline editable in the backend
