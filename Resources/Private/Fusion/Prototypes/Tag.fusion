@@ -7,7 +7,6 @@ prototype(CodeQ.Link:Tag) < prototype(Neos.Fusion:Component) {
     renderDefaultTagIfNoLink = false
     defaultTagName = 'span'
     content = false
-    enforceDownload = false
     attributes = Neos.Fusion:DataStructure
 
     shouldRenderLinkTag = ${this.linkSource.enforceNoLinkTag ? false : this.linkSource.link}
@@ -19,7 +18,6 @@ prototype(CodeQ.Link:Tag) < prototype(Neos.Fusion:Component) {
             rel = ${props.shouldRenderLinkTag ? props.linkSource.rel : false}
             target = ${props.shouldRenderLinkTag ? props.linkSource.target : false}
             class = ${props.class == false ? false : String.trim(props.class)}
-            download = ${props.enforceDownload}
         }
         content = ${props.content || props.linkSource.label}
     }
