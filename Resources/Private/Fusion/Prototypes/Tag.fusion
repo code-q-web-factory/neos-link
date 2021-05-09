@@ -14,10 +14,11 @@ prototype(CodeQ.Link:Tag) < prototype(Neos.Fusion:Component) {
         @if.hasLink = ${props.linkSource.link || props.renderDefaultTagIfNoLink}
         tagName = ${props.shouldRenderLinkTag ? 'a' : props.defaultTagName}
         attributes = Neos.Fusion:DataStructure {
+            @apply.attributes = ${props.attributes}
             href = ${props.shouldRenderLinkTag ? props.linkSource.link : false}
             rel = ${props.shouldRenderLinkTag ? props.linkSource.rel : false}
             target = ${props.shouldRenderLinkTag ? props.linkSource.target : false}
-            class = ${props.class == false ? false : String.trim(props.class)}
+            class = ${props.class == false ? props.attributes.class : String.trim(props.class + ' ' + props.attributes.class)}
         }
         content = ${props.content || props.linkSource.label}
     }
