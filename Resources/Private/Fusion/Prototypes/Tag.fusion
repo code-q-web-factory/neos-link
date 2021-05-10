@@ -1,20 +1,22 @@
 prototype(CodeQ.Link:Tag) < prototype(Neos.Fusion:Component) {
     # link configuration via transfer object
     linkSource = CodeQ.Link:Link
-    class = false
 
     # tag rendering configuration
     renderDefaultTagIfNoLink = false
     defaultTagName = 'span'
     content = false
-    attributes = Neos.Fusion:DataStructure
+
+    # any additional props will be applied as attributes
+    # feel free to use e.g. id, class or download
 
     shouldRenderLinkTag = ${this.linkSource.enforceNoLinkTag ? false : this.linkSource.link}
     renderer = Neos.Fusion:Tag {
         @if.hasLink = ${props.linkSource.link || props.renderDefaultTagIfNoLink}
         tagName = ${props.shouldRenderLinkTag ? 'a' : props.defaultTagName}
         attributes = Neos.Fusion:DataStructure {
-            @apply.attributes = ${props.attributes}
+            @ignoreProperties = ${['linkSource', 'renderDefaultTagIfNoLink', 'defaultTagName', 'content', 'shouldRenderLinkTag']}
+            @apply.props = ${props}
             href = ${props.shouldRenderLinkTag ? props.linkSource.link : false}
             rel = ${props.shouldRenderLinkTag ? props.linkSource.rel : false}
             target = ${props.shouldRenderLinkTag ? props.linkSource.target : false}
