@@ -5,7 +5,7 @@ prototype(CodeQ.Link:Tag) < prototype(Neos.Fusion:Component) {
     # tag rendering configuration
     renderDefaultTagIfNoLink = false
     defaultTagName = 'span'
-    content = false
+    content = ${this.linkSource.label}
 
     # any additional props will be applied as attributes
     # feel free to use e.g. id, class or download
@@ -20,8 +20,8 @@ prototype(CodeQ.Link:Tag) < prototype(Neos.Fusion:Component) {
             href = ${props.shouldRenderLinkTag ? props.linkSource.link : false}
             rel = ${props.shouldRenderLinkTag ? props.linkSource.rel : false}
             target = ${props.shouldRenderLinkTag ? props.linkSource.target : false}
-            class = ${props.class == false ? props.attributes.class : String.trim(props.class + ' ' + props.attributes.class)}
+            class = ${Type.isString(props.class) ? String.trim(props.class) : props.class}
         }
-        content = ${props.content || props.linkSource.label}
+        content = ${props.content}
     }
 }
