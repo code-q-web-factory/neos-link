@@ -23,6 +23,10 @@ prototype(CodeQ.Link:NeosMenuItems.MapItem) < prototype(Neos.Fusion:Map) {
         label = ${item.label}
         state = ${item.state}
         menuLevel = ${item.menuLevel}
+        // if there's a Shortcut node, with a target mode selected target, check the value for link target
+        isShortcutTargetMode = ${q(item.node).is('[instanceof Neos.Neos:Shortcut]') && q(item.node).property('targetMode') == 'selectedTarget'}
+        shortcutTarget = ${q(item.node).property('target')}
+        target = ${(this.isShortcutTargetMode && (String.startsWith(this.shortcutTarget, 'http') || String.startsWith(this.shortcutTarget, '//') || Neos.Link.getScheme(this.shortcutTarget) == 'asset')) ? '_blank' : false}
         subItems = CodeQ.Link:NeosMenuItems.MapItem {
             items = ${item.subItems}
         }
