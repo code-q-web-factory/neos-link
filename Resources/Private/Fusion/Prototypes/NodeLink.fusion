@@ -14,5 +14,5 @@ prototype(CodeQ.Link:NodeLink) < prototype(CodeQ.Link:Link) {
         node = ${node}
         absolute = ${absolute}
     }
-    label = ${q(this.node).closest('[instanceof Neos.Neos:Document]').property('title')}
+    label = ${this.node ? q(this.node).closest('[instanceof Neos.Neos:Document]').property('title') : null}
 }
