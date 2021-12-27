@@ -1,5 +1,5 @@
-[![Latest Stable Version](https://poser.pugx.org/codeq/neos-link/v/stable)](https://packagist.org/packages/codeq/neos-link)
-[![License](https://poser.pugx.org/codeq/neos-link/license)](LICENSE)
+[![Latest Stable Version](https://poser.pugx.org/codeq/link/v/stable)](https://packagist.org/packages/codeq/link)
+[![License](https://poser.pugx.org/codeq/link/license)](LICENSE)
 
 # CodeQ.Link
 
