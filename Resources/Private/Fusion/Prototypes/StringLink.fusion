@@ -33,8 +33,8 @@ prototype(CodeQ.Link:StringLink) < prototype(Neos.Fusion:Component) {
             isNode {
                 condition = ${props.linkType == 'node'}
                 renderer = Neos.Fusion:Value {
-                    node = ${Neos.Link.convertUriToObject(props.link, documentNode)}
-                    value = ${q(this.node).closest('[instanceof Neos.Neos:Document]').property('title')}
+                    node = ${Neos.Link.convertUriToObject(props.link, node)}
+                    value = ${this.node && q(this.node).closest('[instanceof Neos.Neos:Document]').property('title')}
                 }
             }
             isEmail {
