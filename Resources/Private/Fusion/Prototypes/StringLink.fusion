@@ -26,32 +26,32 @@ prototype(CodeQ.Link:StringLink) < prototype(Neos.Fusion:Component) {
             isAsset {
                 condition = ${props.linkType == 'asset'}
                 renderer = Neos.Fusion:Value {
-                    asset = ${Neos.Link.convertUriToObject(link, node)}
+                    asset = ${Neos.Link.convertUriToObject(props.link, node)}
                     value = ${this.asset.title || String.replace(String.replace(this.asset.resource.filename, '_', ' '), '.' + this.asset.resource.fileextension, '')}
                 }
             }
             isNode {
                 condition = ${props.linkType == 'node'}
                 renderer = Neos.Fusion:Value {
-                    node = ${Neos.Link.convertUriToObject(link, documentNode)}
+                    node = ${Neos.Link.convertUriToObject(props.link, documentNode)}
                     value = ${q(this.node).closest('[instanceof Neos.Neos:Document]').property('title')}
                 }
             }
             isEmail {
-                condition = ${String.startsWith(link, 'mailto:')}
-                renderer = ${String.replace(link, 'mailto:', '')}
+                condition = ${String.startsWith(props.link, 'mailto:')}
+                renderer = ${String.replace(props.link, 'mailto:', '')}
             }
             isPhone {
-                condition = ${String.startsWith(link, 'tel:')}
-                renderer = ${String.replace(link, 'tel:', '')}
+                condition = ${String.startsWith(props.link, 'tel:')}
+                renderer = ${String.replace(props.link, 'tel:', '')}
             }
             isHttp {
-                condition = ${String.startsWith(link, 'http')}
-                renderer = ${String.pregReplace(link, '/^http(s)?:\/\//', '')}
+                condition = ${String.startsWith(props.link, 'http')}
+                renderer = ${String.pregReplace(props.link, '/^http(s)?:\/\//', '')}
             }
             isDoubleSlash {
-                condition = ${String.startsWith(link, '//')}
-                renderer = ${String.pregReplace(link, '/^\/\//', '')}
+                condition = ${String.startsWith(props.link, '//')}
+                renderer = ${String.pregReplace(props.link, '/^\/\//', '')}
             }
             fallback {
                 condition = true
