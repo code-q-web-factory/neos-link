@@ -4,7 +4,7 @@ prototype(CodeQ.Link:AssetLink) < prototype(CodeQ.Link:Link) {
     backendLink = true
 
     # map to transfer object
-    enforceNoLinkTag = ${node.context.inBackend && !this.backendLink ? true : false}
+    enforceNoLinkTag = ${renderingMode.isEdit && !this.backendLink ? true : false}
     link = ${this.asset}
     link.@process.toUri = Neos.Fusion:ResourceUri {
         resource = ${value.resource}

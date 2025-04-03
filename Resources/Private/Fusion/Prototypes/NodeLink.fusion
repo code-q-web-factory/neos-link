@@ -9,7 +9,7 @@ prototype(CodeQ.Link:NodeLink) < prototype(CodeQ.Link:Link) {
         absolute = ${this.absolute}
         node = ${this.node}
     }
-    enforceNoLinkTag = ${node.context.inBackend && !this.backendLink ? true : false}
+    enforceNoLinkTag = ${renderingMode.isEdit && !this.backendLink ? true : false}
     link = Neos.Neos:NodeUri {
         @if.has = ${node}
         node = ${node}
