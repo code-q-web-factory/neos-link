@@ -17,7 +17,7 @@ prototype(CodeQ.Link:StringLink) < prototype(Neos.Fusion:Component) {
     # map to transfer object
     linkType = ${Neos.Link.getScheme(this.link)}
     renderer = CodeQ.Link:Link {
-        enforceNoLinkTag = ${node.context.inBackend && !props.backendLink ? true : false}
+        enforceNoLinkTag = ${!props.backendLink && (renderingMode ? renderingMode.isEdit : node.context.inBackend) ? true : false}
         label = Neos.Fusion:Case {
             isOverride {
                 condition = ${props.label != 'will-be-calculated'}
