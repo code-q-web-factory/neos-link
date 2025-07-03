@@ -17,6 +17,7 @@ prototype(CodeQ.Link:NeosMenuItems.MapItem) < prototype(Neos.Fusion:Map) {
     # rendering
     itemName = 'item'
     itemRenderer = CodeQ.Link:MenuItem {
+        node = ${item.node}
         link = Neos.Neos:NodeUri {
             node = ${item.node}
         }
