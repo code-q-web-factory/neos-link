@@ -5,13 +5,23 @@ prototype(CodeQ.Link:AssetLink) < prototype(CodeQ.Link:Link) {
 
     # map to transfer object
     enforceNoLinkTag = ${!this.backendLink && (renderingMode ? renderingMode.isEdit : node.context.inBackend) ? true : false}
-    # Only build a link when the asset actually carries a resource. An unset or resource-less asset
-    # would otherwise feed a null resource into ResourceUri, which throws
-    # 'Neither "resource" nor "path" were specified' and aborts the whole page render.
-    link = ${this.asset && this.asset.resource ? this.asset : false}
-    link.@process.toUri = Neos.Fusion:ResourceUri {
-        resource = ${value.resource}
-        @if.hasResource = ${value.resource}
+    # Convert the asset to a resource URI only when it actually carries a resource; otherwise render no
+    # link. The check lives inside a Case matcher (evaluated with `value` in scope) rather than a
+    # processor @if, because a @process @if is evaluated before `value` is pushed
+    # (Runtime::evaluateProcessors), so it would skip the conversion for every asset and leak the raw
+    # asset object into the markup.
+    link = ${this.asset}
+    link.@process.toUri = Neos.Fusion:Case {
+        hasResource {
+            condition = ${value && value.resource}
+            renderer = Neos.Fusion:ResourceUri {
+                resource = ${value.resource}
+            }
+        }
+        noResource {
+            condition = ${true}
+            renderer = ${false}
+        }
     }
     label = ${this.asset.title || (this.asset.resource ? String.replace(String.replace(this.asset.resource.filename, '_', ' '), '.' + this.asset.resource.fileextension, '') : false)}
     target = '_blank'
