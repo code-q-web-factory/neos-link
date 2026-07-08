@@ -5,11 +5,15 @@ prototype(CodeQ.Link:AssetLink) < prototype(CodeQ.Link:Link) {
 
     # map to transfer object
     enforceNoLinkTag = ${!this.backendLink && (renderingMode ? renderingMode.isEdit : node.context.inBackend) ? true : false}
-    link = ${this.asset}
+    # Only build a link when the asset actually carries a resource. An unset or resource-less asset
+    # would otherwise feed a null resource into ResourceUri, which throws
+    # 'Neither "resource" nor "path" were specified' and aborts the whole page render.
+    link = ${this.asset && this.asset.resource ? this.asset : false}
     link.@process.toUri = Neos.Fusion:ResourceUri {
         resource = ${value.resource}
+        @if.hasResource = ${value.resource}
     }
-    label = ${this.asset.title || String.replace(String.replace(this.asset.resource.filename, '_', ' '), '.' + this.asset.resource.fileextension, '')}
+    label = ${this.asset.title || (this.asset.resource ? String.replace(String.replace(this.asset.resource.filename, '_', ' '), '.' + this.asset.resource.fileextension, '') : false)}
     target = '_blank'
     rel = false
 }
